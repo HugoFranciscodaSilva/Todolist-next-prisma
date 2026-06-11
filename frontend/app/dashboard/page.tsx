@@ -1,6 +1,8 @@
+import BotaoLogout from "@/components/BotaoLogout/BotaoLogout";
 import DialogTarefa from "@/components/DialogTarefa/DialogTarefa";
 import TabelaTarefa from "@/components/TabelaTarefa/TabelaTarefa";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
 
 export default function Dashboard(){
 
@@ -15,6 +17,7 @@ export default function Dashboard(){
                     <TabelaTarefa/>
                 </CardContent>
             </Card>
+           <BotaoLogout/>
         </main>
     )
 }

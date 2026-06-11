@@ -5,13 +5,14 @@ import { useForm } from 'react-hook-form'
 import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-import { UsuarioProps, UsuarioSchema } from '@/schemas/UsuarioSchema'
+import { LoginProps, LoginSchema } from '@/schemas/UsuarioSchema'
 import {zodResolver} from '@hookform/resolvers/zod/dist/zod.js'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import { api } from '@/services/api'
 import Cookies from 'js-cookie'
+import { ArrowRight } from 'lucide-react'
 
 export default function FormLogin(){
 
@@ -24,12 +25,12 @@ export default function FormLogin(){
             window.history.replaceState({},"","/")
         }
     },[errorType])
-    const {register, reset, handleSubmit, formState: {errors}} = useForm<UsuarioSchema>({resolver: zodResolver(UsuarioProps)})
+    const {register, reset, handleSubmit, formState: {errors}} = useForm<LoginSchema>({resolver: zodResolver(LoginProps)})
     const queryClient = useQueryClient()
     const router = useRouter()
 
 
-    async function Logar(data:UsuarioSchema){
+    async function Logar(data:LoginSchema){
         const res = await api.post('/auth/login',data)
         return res.data
     }
@@ -51,7 +52,7 @@ export default function FormLogin(){
         }
     })
 
-    function onSubmit(data:UsuarioSchema){
+    function onSubmit(data:LoginSchema){
         mutate(data)
     }
 
@@ -59,16 +60,16 @@ export default function FormLogin(){
     return(
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
-                <Label htmlFor="email">Digite seu email:</Label>
-                <Input {...register('email')} id="emai" type="email" placeholder="exemplo@exemplo.com"/>
+                <Label htmlFor="email">Email</Label>
+                <Input className='rounded-[5px]' {...register('email')} id="emai" type="email" placeholder="nome@empresa.com"/>
                 {errors?.email && <span className='text-red-500'>{errors.email.message}</span>}
             </div>
             <div>
-                <Label htmlFor="senha">Digite sua senha:</Label>
+                <Label htmlFor="senha">Senha</Label>
                 <Input {...register('senha')} id="senha" type="password" placeholder="•••••••••••"/>
                 {errors?.senha && <span className='text-red-500'>{errors.senha.message}</span>}
             </div>
-            <Button type="submit" className="w-full">{isPending ? 'Entrando...' : 'Entrar'}</Button>
+            <Button type="submit" className="w-full flex items-center bg-roxo text-white hover:bg-roxo/80">{isPending ? 'Entrando...' : 'Entrar'} <ArrowRight/></Button>
         </form>
     )
 }
