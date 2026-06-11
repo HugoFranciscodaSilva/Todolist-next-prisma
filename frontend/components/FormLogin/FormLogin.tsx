@@ -9,15 +9,16 @@ import { LoginProps, LoginSchema } from '@/schemas/UsuarioSchema'
 import {zodResolver} from '@hookform/resolvers/zod/dist/zod.js'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { api } from '@/services/api'
 import Cookies from 'js-cookie'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Eye, EyeClosed, LockKeyhole, Mail } from 'lucide-react'
 
 export default function FormLogin(){
 
     const searchParams = useSearchParams()
     const errorType = searchParams.get("error")
+    const [senhaView,setSenhaView] = useState<Boolean>(false)
 
     useEffect(()=>{
         if(errorType === "unauthorized"){
@@ -61,15 +62,24 @@ export default function FormLogin(){
         <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <Label htmlFor="email">Email</Label>
-                <Input className='rounded-[5px]' {...register('email')} id="emai" type="email" placeholder="nome@empresa.com"/>
+                <div className='relative'>
+                    <Mail className='absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground'/>
+                    <Input className='rounded-[5px] p-7 pl-10' {...register('email')} id="emai" type="email" placeholder="nome@empresa.com"/>
+                </div>
                 {errors?.email && <span className='text-red-500'>{errors.email.message}</span>}
             </div>
             <div>
                 <Label htmlFor="senha">Senha</Label>
-                <Input {...register('senha')} id="senha" type="password" placeholder="•••••••••••"/>
+                <div className='relative'>
+                    <LockKeyhole className='absolute top-1/2 left-3 -translate-y-1/2 text-muted-foreground'/>
+                    <Input className='rounded-[5px] p-7 pl-10'  {...register('senha')} id="senha" type={senhaView ? 'text' : 'password'} placeholder="•••••••••••"/>
+                    <div className='absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground cursor-pointer' onClick={()=> setSenhaView(!senhaView)}>
+                        {senhaView ? <EyeClosed/> : <Eye/>}
+                    </div>
+                </div>
                 {errors?.senha && <span className='text-red-500'>{errors.senha.message}</span>}
             </div>
-            <Button type="submit" className="w-full flex items-center bg-roxo text-white hover:bg-roxo/80">{isPending ? 'Entrando...' : 'Entrar'} <ArrowRight/></Button>
+            <Button type="submit" className="w-full flex items-center bg-roxo text-white hover:bg-roxo/80 rounded-[5px]">{isPending ? 'Entrando...' : 'Entrar'} <ArrowRight/></Button>
         </form>
     )
 }

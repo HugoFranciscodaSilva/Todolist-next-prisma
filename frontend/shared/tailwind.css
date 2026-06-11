@@ -6,6 +6,7 @@
 
 @theme inline {
   --color-roxo:#6366F1;
+  --color-azul:#020617;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
@@ -129,3 +130,11 @@
     @apply font-sans;
   }
 }
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.103);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border:1px solid rgba(155, 155, 155, 0.185);
+}
+
