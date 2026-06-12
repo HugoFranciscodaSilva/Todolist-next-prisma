@@ -1,6 +1,6 @@
 'use client'
 
-import { CadastroSchema } from "@/schemas/UsuarioSchema";
+import { CadastroProps, CadastroSchema } from "@/schemas/UsuarioSchema";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -38,7 +38,7 @@ export default function FormCadastro(){
 
     
     return(
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} method="POST">
             <div>
                 <Label htmlFor="nome">Digite seu nome:</Label>
                 <Input {...register("nome")} type="text" id="nome" placeholder="Fulano"/>

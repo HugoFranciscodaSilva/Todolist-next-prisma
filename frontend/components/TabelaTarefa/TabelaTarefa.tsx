@@ -1,8 +1,8 @@
 'use client'
 
-import { Trash } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { Button } from "../ui/button";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "../ui/table";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/services/api";
 import { TarefaSchema } from "@/schemas/TarefaSchema";
@@ -53,8 +53,8 @@ export default function TabelaTarefa(){
     }
 
     return(
-        <Table>
-            <TableHeader>
+        <Table className="border-separate border-spacing-0">
+            {/* <TableHeader>
                 <TableRow>
                     <TableHead className="rounded-tl-md">N</TableHead>
                     <TableHead>Nome</TableHead>
@@ -83,7 +83,61 @@ export default function TabelaTarefa(){
                         </TableCell>
                     </TableRow>
                 )}
-            </TableBody>
+            </TableBody> */}
+            <TableHeader>
+                        <TableRow>
+                            <TableCell colSpan={5} className="border-b-none border-t-2 border-x-2 rounded-t-2xl text-2xl" >Minhas Tarefas</TableCell>
+                        </TableRow>
+                    </TableHeader>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHead className="border-l-2">Titulo</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Prioridade</TableHead>
+                            <TableHead>Prazo</TableHead>
+                            <TableHead className="border-r-2">Ações</TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {data?.map((tarefa:TarefaExtends) =>
+                            <TableRow key={tarefa.id}>
+                                <TableCell className=" border-l-2">
+                                    <span className="text-lg">{tarefa.nome}</span><br />
+                                    <span className="text-[12px]">{tarefa.descricao}</span>
+                                </TableCell>
+                                <TableCell><span className="bg-blue-950/60 text-blue-500 p-2 rounded-3xl font-bold">• {tarefa.status}</span></TableCell>
+                                <TableCell><span className="bg-red-950/60 text-red-500 p-2 rounded-3xl font-bold">{tarefa.prioridade}</span></TableCell>
+                                <TableCell>{tarefa.prazo ? new Date(tarefa.prazo).toLocaleDateString('pt-BR',{timeZone:"UTC"}) : 'Sem Prazo'}</TableCell>
+                                <TableCell className="border-r-2">
+                                    <div className="flex gap-2">
+                                        <Pencil className="text-muted-foreground hover:text-white cursor-pointer"/>
+                                        <Trash className="text-muted-foreground hover:text-white cursor-pointer"/>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        )}
+                        <TableRow>
+                            <TableCell className=" border-l-2">
+                                <span className="text-lg">Revisão de Design System</span><br />
+                                <span className="text-[12px]">Mudar os tokens de cor para o modo escuro</span>
+                            </TableCell>
+                            <TableCell><span className="bg-blue-950/60 text-blue-500 p-2 rounded-3xl font-bold">• Em Andamento</span></TableCell>
+                            <TableCell><span className="bg-red-950/60 text-red-500 p-2 rounded-3xl font-bold">Alta</span></TableCell>
+                            <TableCell>12 Mai,2024</TableCell>
+                            <TableCell className="border-r-2">
+                                <div className="flex gap-2">
+                                    <Pencil className="text-muted-foreground hover:text-white cursor-pointer"/>
+                                    <Trash className="text-muted-foreground hover:text-white cursor-pointer"/>
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    </TableBody>
+                    <TableFooter>
+                        <TableRow>
+                            <TableCell className="rounded-bl-md border-l-2 text-md" colSpan={4}>Mostrando 3 de 128 tarefas</TableCell>
+                            <TableCell className="rounded-br-2xl border-r-2"><Button className="bg-cinza hover:bg-cinza/60 text-cinzaclaro">Ver Mais</Button></TableCell>
+                        </TableRow>
+                    </TableFooter>
         </Table>
     )
 }

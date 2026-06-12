@@ -8,13 +8,13 @@ import Link from "next/link";
 export default function Home(){
   return(
     <main className="w-[70%] h-dvh flex justify-center items-center m-auto">
-      <section className="w-1/2 bg-white h-[80%] rounded-l-md glass-card flex flex-col items-center justify-center">
+      <section className="w-1/2 bg-white h-[80%] rounded-l-md glass-card flex flex-col gap-7 items-center justify-center">
           <div className="flex gap-2 items-center">
             <Check className="bg-roxo rounded-2xl w-10 text-black"/>
             <h1 className="text-2xl font-bold">TaskMaster</h1>
           </div>
           <picture>
-            <Image src={'/Banner-tarefas.png'} alt="Banner de tarefas" height={200} width={250}/>
+            <Image src={'/Banner-tarefas.png'} alt="Banner de tarefas" height={200} width={300}/>
           </picture>
           <p className="text-center">Orquestre suas tarefas com <br /> precisão cirúrgica e clareza <br /> absoluta.</p>
       </section>

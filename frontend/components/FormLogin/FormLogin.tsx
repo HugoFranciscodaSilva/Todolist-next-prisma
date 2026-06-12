@@ -59,7 +59,7 @@ export default function FormLogin(){
 
 
     return(
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} method='POST'>
             <div>
                 <Label htmlFor="email">Email</Label>
                 <div className='relative'>
